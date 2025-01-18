@@ -5,7 +5,7 @@ import pickle
 # Muat model dan scaler
 try:
     model = pickle.load(open('penyakit_jantung.sav', 'rb'))
-    scaler = pickle.load(open('scaler.pkl', 'rb'))  # Konsisten gunakan 'scaler'
+    scaler = pickle.load(open('skaler.pkl', 'rb'))  # Konsisten gunakan 'scaler'
     st.write("Model dan scaler berhasil dimuat.")
 except Exception as e:
     st.write(f"Kesalahan saat memuat model atau scaler: {e}")
