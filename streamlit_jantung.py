@@ -5,8 +5,8 @@ import pickle
 # Muat model dan scaler
 try:
     model = pickle.load(open('penyakit_jantung.sav', 'rb'))
-    scaler = pickle.load(open('skaler.pkl', 'rb'))  # Konsisten gunakan 'scaler'
-    st.write("Model dan scaler berhasil dimuat.")
+    #scaler = pickle.load(open('skaler.pkl', 'rb'))  # Konsisten gunakan 'scaler'
+    #st.write("Model dan scaler berhasil dimuat.")
 except Exception as e:
     st.write(f"Kesalahan saat memuat model atau scaler: {e}")
 
@@ -39,7 +39,9 @@ def main():
     thal_options = ['Tidak diketahui','Normal', 'Fixed Defect', 'Reversible Defect']
     thal = st.selectbox('Thalassemia', thal_options)
     thal_num = thal_options.index(thal)
- 
+    
+    mean_std_values = pickle.load(open('mean_std_values.pkl', 'rb'))
+    
     if st.button('Predict'):
         user_input = {
             'age': [age],
@@ -57,21 +59,24 @@ def main():
             'thal': [thal_num]
         }
         user_input = list(user_input.values())
+        
+        # Apply saved transformation to new data
+        user_input = (user_input - mean_std_values['mean']) / mean_std_values['std']
      
         # Terapkan transformasi scaler pada input data
-        try:
-            user_input_scaled = scaler.transform(user_input)
-            st.write("Data input berhasil distandarisasi.")
-        except AttributeError as e:
-            st.write(f"Kesalahan pada scaler: {e}")
-            return
-        except Exception as e:
-            st.write(f"Kesalahan tidak terduga: {e}")
-            return
+        #try:
+            #user_input_scaled = scaler.transform(user_input)
+            #st.write("Data input berhasil distandarisasi.")
+        #except AttributeError as e:
+            #st.write(f"Kesalahan pada scaler: {e}")
+            #return
+        #except Exception as e:
+            #st.write(f"Kesalahan tidak terduga: {e}")
+            #return
      
         # Prediksi menggunakan model
-        prediction = model.predict(user_input_scaled)
-        prediction_proba = model.predict_proba(user_input_scaled)
+        prediction = model.predict(user_input)
+        prediction_proba = model.predict_proba(user_input)
 
         if prediction[0] == 1:
             bg_color = 'red'
