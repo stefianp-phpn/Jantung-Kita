@@ -12,7 +12,7 @@ except Exception as e:
 
 def main():
     st.title('Heart Disease Prediction')
-    age = st.number_input('Age', 28 , 66)
+    age = st.number_input('Age', 17 , 99)
     sex_options = ['Male', 'Female']
     sex = st.selectbox('Sex', sex_options)
     sex_num = 1 if sex == 'Male' else 0 
@@ -87,8 +87,7 @@ def main():
          confidence = prediction_proba[0][1] if prediction[0] == 1 else prediction_proba[0][0]
 
          st.markdown(f"<p style='background-color:{bg_color}; color:white; padding:10px;'>Hasil Prediksi : {prediction_result}<br>Confidence: {((confidence*10000)//1)/100}%</p>", unsafe_allow_html=True)
-         if prediction_result == 'Positive':
-            st.markdown(f"<p style='background-color:{bg_color}; color:white; padding:10px;'>Jantung Anda dalam bahaya<br>Segera lakukan pemeriksaan lebih lanjut</p>")
+         
 
 if __name__ == '__main__':
     main()
