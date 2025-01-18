@@ -41,7 +41,7 @@ def main():
     thal_num = thal_options.index(thal)
  
     if st.button('Predict'):
-        user_input = pd.DataFrame(data={
+        user_input = {
             'age': [age],
             'sex': [sex_num],  
             'cp': [cp_num],
@@ -55,7 +55,8 @@ def main():
             'slope': [slope_num],
             'ca': [ca],
             'thal': [thal_num]
-        })
+        }
+        user_input = list(user_input.values())
      
         # Terapkan transformasi scaler pada input data
         try:
