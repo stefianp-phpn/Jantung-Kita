@@ -43,7 +43,7 @@ def main():
     mean_std_values = pickle.load(open('mean_std_values.pkl', 'rb'))
     
     if st.button('Predict'):
-        user_input = {
+         user_input = pd.DataFrame(data={
             'age': [age],
             'sex': [sex_num],  
             'cp': [cp_num],
@@ -57,8 +57,7 @@ def main():
             'slope': [slope_num],
             'ca': [ca],
             'thal': [thal_num]
-        }
-        user_input = list(user_input.values())
+        })
         
         # Apply saved transformation to new data
         user_input = (user_input - mean_std_values['mean']) / mean_std_values['std']
