@@ -59,9 +59,9 @@ def main():
             'thal': [thal_num]
         })
         
-        # Apply saved transformation to new data
-        user_input = (user_input - mean_std_values['mean']) / mean_std_values['std']
-     
+         # Apply saved transformation to new data
+         user_input = (user_input - mean_std_values['mean']) / mean_std_values['std']
+
         # Terapkan transformasi scaler pada input data
         #try:
             #user_input_scaled = scaler.transform(user_input)
@@ -74,20 +74,20 @@ def main():
             #return
      
         # Prediksi menggunakan model
-        prediction = model.predict(user_input)
-        prediction_proba = model.predict_proba(user_input)
+         prediction = model.predict(user_input)
+         prediction_proba = model.predict_proba(user_input)
 
-        if prediction[0] == 1:
+         if prediction[0] == 1:
             bg_color = 'red'
             prediction_result = 'Positive'
-        else:
+         else:
             bg_color = 'green'
             prediction_result = 'Negative'
      
-        confidence = prediction_proba[0][1] if prediction[0] == 1 else prediction_proba[0][0]
+         confidence = prediction_proba[0][1] if prediction[0] == 1 else prediction_proba[0][0]
 
-        st.markdown(f"<p style='background-color:{bg_color}; color:white; padding:10px;'>Hasil Prediksi : {prediction_result}<br>Confidence: {((confidence*10000)//1)/100}%</p>", unsafe_allow_html=True)
-        if prediction_result == 'Positive':
+         st.markdown(f"<p style='background-color:{bg_color}; color:white; padding:10px;'>Hasil Prediksi : {prediction_result}<br>Confidence: {((confidence*10000)//1)/100}%</p>", unsafe_allow_html=True)
+         if prediction_result == 'Positive':
             st.markdown(f"<p style='background-color:{bg_color}; color:white; padding:10px;'>Jantung Anda dalam bahaya<br>Segera lakukan pemeriksaan lebih lanjut</p>")
 
 if __name__ == '__main__':
